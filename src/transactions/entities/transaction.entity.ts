@@ -3,15 +3,17 @@ import {
     CreateDateColumn,
     Entity,
     PrimaryColumn,
-    UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
-export class Accounts {
+export class Transactions {
     @PrimaryColumn({ generated: 'increment' })
     id: number;
 
     @Column('real')
-    balance: number;
+    value: number;
+
+    @CreateDateColumn()
+    readonly createdAt: Date;
 
 }

@@ -17,11 +17,4 @@ export class Users {
     @Column('varchar', { length: 255, nullable: false })
     password: string;
 
-    @CreateDateColumn()
-    readonly createdAt: Date;
-
-    @UpdateDateColumn()
-    readonly updatedAt: Date;
-
-
 }
