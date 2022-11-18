@@ -3,7 +3,10 @@ import {
     CreateDateColumn,
     Entity,
     PrimaryColumn,
+    ManyToOne
 } from 'typeorm';
+
+import { Accounts } from 'src/accounts/entities/account.entity';
 
 @Entity()
 export class Transactions {
@@ -15,5 +18,11 @@ export class Transactions {
 
     @CreateDateColumn()
     readonly createdAt: Date;
+
+    @ManyToOne(() => Accounts, (accounts) => accounts.id)
+    debitedAccount: Accounts;
+
+    @ManyToOne(() => Accounts, (accounts) => accounts.id)
+    creditedAccount: Accounts;
 
 }

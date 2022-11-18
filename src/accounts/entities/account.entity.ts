@@ -2,7 +2,10 @@ import {
     Column,
     Entity,
     PrimaryColumn,
+    OneToMany
 } from 'typeorm';
+
+import { Transactions } from 'src/transactions/entities/transaction.entity';
 
 @Entity()
 export class Accounts {
@@ -12,4 +15,6 @@ export class Accounts {
     @Column('real')
     balance: number;
 
+    @OneToMany(() => Transactions, (transactions) => transactions.debitedAccount)
+    transactions: Transactions[];
 }
