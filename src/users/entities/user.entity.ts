@@ -14,7 +14,7 @@ export class Users {
     id: number;
 
     @Column('varchar', { length: 255, nullable: false, unique: true })
-    username: string;
+    userName: string;
 
     @Column('varchar', { length: 255, nullable: false })
     password: string;
