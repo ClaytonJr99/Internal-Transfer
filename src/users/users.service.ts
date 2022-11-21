@@ -46,7 +46,7 @@ export class UsersService {
     if (user) {
         return user;
     }
-    throw new NotFoundException();
+    throw new NotFoundException(`user with id ${id} not found`);
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
