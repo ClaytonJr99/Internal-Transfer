@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Users } from './entities/user.entity';
-import { UsersRepository } from './users.repository';
 
 @Injectable()
 export class UsersService {
@@ -21,6 +20,12 @@ export class UsersService {
     if(userName){
       throw new BadRequestException('UserName already exists');
     };
+
+    const stringLength = createUserDto.userName
+
+    if(stringLength.length < 3){
+      throw new BadRequestException('Username must contain at least 3 characters');
+    }
 
     const user = this.repository.create(createUserDto);
     const persistedUser = await this.repository.save(user);
