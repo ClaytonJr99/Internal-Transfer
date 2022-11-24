@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -37,7 +37,11 @@ export class UsersService {
     return this.repository.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: number, u: any) {
+    if (id != u.id) {
+      throw new UnauthorizedException();
+    }
+
     const user = await this.repository.findOne(
       { where:
           { id: id }
@@ -48,6 +52,16 @@ export class UsersService {
     }
     throw new NotFoundException(`user with id ${id} not found`);
   }
+
+  async findByUserName(userName){
+    const user = await this.repository.findOne({ 
+      where:
+        { userName: userName }
+      })
+
+      return user;
+  }
+
 
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
